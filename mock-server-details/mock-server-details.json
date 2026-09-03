@@ -1,0 +1,182 @@
+{
+  "microserviceId" : "6a9993e2f2730d0710cad26e",
+  "mocks" : [ {
+    "id" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+    "microserviceId" : "6a9993e2f2730d0710cad26e",
+    "specMetadataId" : "6a99942b40e8243f64aac1b7",
+    "apiSpecName" : "ForgeScheduler - Async Job Orchestration & Queue Engine",
+    "name" : "mock-forgescheduler---async-job-orchestration-&-queue-engine",
+    "mockServiceName" : "mock-forgescheduler---async-job-orchestration-&-queue-engine",
+    "mockServerUrl" : "https://forgesphere.probestack.io/mock-api/v1/api/mocks/mock-51150643",
+    "responseLatencyMs" : 0,
+    "mockUrl" : "mock-51150643",
+    "isPrivate" : true,
+    "delayMs" : 0,
+    "requestCount" : 0,
+    "createdAt" : "2026-09-03T15:37:33.894Z",
+    "updatedAt" : "2026-09-03T15:37:33.909Z",
+    "endpoints" : [ {
+      "id" : "921650a2-edbb-41ea-b214-626aaba3197d",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/drain",
+      "method" : "POST",
+      "responseStatus" : 202,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"message\":\"Drain signal accepted. Shutting down in 60s.\"}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:34.042Z",
+      "updatedAt" : "2026-09-03T15:37:34.042Z"
+    }, {
+      "id" : "1ea6d899-c38d-468d-8684-d3ad8b417c8c",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/jobs",
+      "method" : "GET",
+      "responseStatus" : 200,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "[{\"id\":\"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\"jobType\":\"ENHANCEMENT\",\"targetId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":\"QUEUED\",\"priority\":5,\"createdAt\":\"2024-01-01T00:00:00Z\",\"scheduledStartTime\":\"2024-01-01T00:00:00Z\"}]",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:33.962Z",
+      "updatedAt" : "2026-09-03T15:37:33.963Z"
+    }, {
+      "id" : "37225bac-8a2b-4a37-a629-afc965a49392",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/jobs",
+      "method" : "POST",
+      "responseStatus" : 202,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"id\":\"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\"jobType\":\"ENHANCEMENT\",\"targetId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":\"QUEUED\",\"priority\":5,\"createdAt\":\"2024-01-01T00:00:00Z\",\"scheduledStartTime\":\"2024-01-01T00:00:00Z\"}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : "{\"jobType\":\"ENHANCEMENT\",\"targetId\":\"550e8400-e29b-41d4-a716-446655440000\",\"payload\":{\"repositoryUrl\":\"git@github.com:forgesphere/payment-app.git\",\"branch\":\"main\",\"fixesToApply\":[\"ACTUATOR_HEALTH\",\"PROMETHEUS_METRICS\"]},\"priority\":5,\"delaySeconds\":0}",
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:33.974Z",
+      "updatedAt" : "2026-09-03T15:37:33.974Z"
+    }, {
+      "id" : "d472d658-d73b-4d6f-af48-8cc51d4f90b1",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/jobs/{jobScheduleId}",
+      "method" : "DELETE",
+      "responseStatus" : 204,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:33.990Z",
+      "updatedAt" : "2026-09-03T15:37:33.990Z"
+    }, {
+      "id" : "9671fa83-9533-4326-bbe8-8e61430e46c0",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/jobs/{jobScheduleId}",
+      "method" : "GET",
+      "responseStatus" : 200,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"id\":\"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\"jobType\":\"ENHANCEMENT\",\"targetId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":\"QUEUED\",\"priority\":5,\"createdAt\":\"2024-01-01T00:00:00Z\",\"scheduledStartTime\":\"2024-01-01T00:00:00Z\",\"currentAttempt\":2,\"maxAttempts\":5,\"lastError\":\"java.net.SocketTimeoutException: Read timed out\",\"executionHistory\":[{\"attemptNumber\":0,\"startTime\":\"2024-01-01T00:00:00Z\",\"endTime\":\"2024-01-01T00:00:00Z\",\"status\":\"SUCCESS\"}]}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:33.981Z",
+      "updatedAt" : "2026-09-03T15:37:33.982Z"
+    }, {
+      "id" : "19ea0301-42aa-4d58-9906-376d039c6267",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/queues",
+      "method" : "GET",
+      "responseStatus" : 200,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"queueDepth\":12,\"queueRemainingCapacity\":88,\"activeWorkerThreads\":5,\"poolSize\":10,\"corePoolSize\":4,\"maximumPoolSize\":20,\"completedTaskCount\":1542,\"timestamp\":\"2024-01-01T00:00:00Z\"}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:34.032Z",
+      "updatedAt" : "2026-09-03T15:37:34.033Z"
+    }, {
+      "id" : "34c1c1cd-1bf2-4f74-b9f7-7075a1259ae0",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/retry/config",
+      "method" : "GET",
+      "responseStatus" : 200,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"maxAttempts\":3,\"backoffMultiplier\":2.0,\"initialDelaySeconds\":5,\"timeoutSeconds\":600}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:34.016Z",
+      "updatedAt" : "2026-09-03T15:37:34.016Z"
+    }, {
+      "id" : "c69bfb74-d3ff-48c8-9453-c072364b1c06",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/retry/config",
+      "method" : "PUT",
+      "responseStatus" : 200,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"maxAttempts\":3,\"backoffMultiplier\":2.0,\"initialDelaySeconds\":5,\"timeoutSeconds\":600}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : "{\"maxAttempts\":3,\"backoffMultiplier\":2.0,\"initialDelaySeconds\":5,\"timeoutSeconds\":600}",
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:34.024Z",
+      "updatedAt" : "2026-09-03T15:37:34.024Z"
+    }, {
+      "id" : "ecc8500f-a9ec-4983-ac14-779e32c7be3a",
+      "mockId" : "45701285-ca46-435a-a751-0a6c2cb18b96",
+      "path" : "/scheduler/retry/{jobScheduleId}",
+      "method" : "POST",
+      "responseStatus" : 202,
+      "responseHeaders" : {
+        "Content-Type" : "application/json"
+      },
+      "responseBody" : "{\"id\":\"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\"jobType\":\"ENHANCEMENT\",\"targetId\":\"550e8400-e29b-41d4-a716-446655440000\",\"status\":\"QUEUED\",\"priority\":5,\"createdAt\":\"2024-01-01T00:00:00Z\",\"scheduledStartTime\":\"2024-01-01T00:00:00Z\"}",
+      "delayMs" : 0,
+      "isActive" : true,
+      "requestBodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true,
+      "createdAt" : "2026-09-03T15:37:34Z",
+      "updatedAt" : "2026-09-03T15:37:34Z"
+    } ]
+  } ]
+}

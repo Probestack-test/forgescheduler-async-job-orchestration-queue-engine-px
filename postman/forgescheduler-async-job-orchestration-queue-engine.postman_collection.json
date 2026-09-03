@@ -1,0 +1,240 @@
+{
+  "info" : {
+    "name" : "forgescheduler-async-job-orchestration-queue-engine Postman Collection",
+    "description" : "The central brain of the ForgeSphere ecosystem. \nManages asynchronous job scheduling, priority queuing, retry policies for failed builds, \nand real-time worker pool metrics. \nIt decouples the API layer from the execution layer, ensuring high throughput \nand fault tolerance for all Enhancement and Assessment pipelines.\n\n\nOpenAPI version: 1.0.0",
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth" : {
+    "type" : "bearer",
+    "bearer" : [ {
+      "key" : "token",
+      "value" : "{{accessToken}}",
+      "type" : "string"
+    } ]
+  },
+  "variable" : [ {
+    "key" : "baseUrl",
+    "value" : "https://scheduler.forgesphere.lightning.com/v1",
+    "type" : "string",
+    "description" : "Override with the base URL of the deployed Apigee proxy."
+  }, {
+    "key" : "accessToken",
+    "value" : "",
+    "type" : "string"
+  }, {
+    "key" : "status",
+    "value" : "",
+    "type" : "string",
+    "description" : "Filter by current job status."
+  }, {
+    "key" : "jobType",
+    "value" : "",
+    "type" : "string",
+    "description" : "Filter by job type."
+  }, {
+    "key" : "page",
+    "value" : "",
+    "type" : "string",
+    "description" : "Page number for pagination."
+  }, {
+    "key" : "size",
+    "value" : "",
+    "type" : "string",
+    "description" : "Items per page."
+  }, {
+    "key" : "jobScheduleId",
+    "value" : "",
+    "type" : "string",
+    "description" : "Unique ID of the scheduled job entry."
+  }, {
+    "key" : "timeoutSeconds",
+    "value" : "",
+    "type" : "string",
+    "description" : "Maximum seconds to wait for running jobs to finish."
+  } ],
+  "item" : [ {
+    "name" : "List all scheduled/pending jobs",
+    "request" : {
+      "method" : "GET",
+      "description" : "List all scheduled/pending jobs\n\nResponses:\n- 200: List of scheduled jobs.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/jobs?status={{status}}&jobType={{jobType}}&page={{page}}&size={{size}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "jobs" ],
+        "query" : [ {
+          "key" : "status",
+          "value" : "{{status}}",
+          "disabled" : true,
+          "description" : "Filter by current job status."
+        }, {
+          "key" : "jobType",
+          "value" : "{{jobType}}",
+          "disabled" : true,
+          "description" : "Filter by job type."
+        }, {
+          "key" : "page",
+          "value" : "{{page}}",
+          "disabled" : true,
+          "description" : "Page number for pagination."
+        }, {
+          "key" : "size",
+          "value" : "{{size}}",
+          "disabled" : true,
+          "description" : "Items per page."
+        } ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Schedule a new asynchronous job",
+    "request" : {
+      "method" : "POST",
+      "description" : "Schedule a new asynchronous job\n\nResponses:\n- 202: Job successfully scheduled and accepted into the queue.\n- 400: Invalid request payload or unsupported job type.\n- 503: Scheduler queue is full. Please try again later.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json",
+        "type" : "text"
+      } ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{}",
+        "options" : {
+          "raw" : {
+            "language" : "json"
+          }
+        }
+      },
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/jobs",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "jobs" ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Get scheduled job details by ID",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get scheduled job details by ID\n\nResponses:\n- 200: Scheduled job details.\n- 404: The specified Job Schedule ID does not exist.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/jobs/:jobScheduleId",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "jobs", ":jobScheduleId" ],
+        "variable" : [ {
+          "key" : "jobScheduleId",
+          "value" : "{{jobScheduleId}}",
+          "description" : "Unique ID of the scheduled job entry."
+        } ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Cancel a pending or queued job",
+    "request" : {
+      "method" : "DELETE",
+      "description" : "Cancel a pending or queued job\n\nResponses:\n- 204: Job successfully cancelled.\n- 404: The specified Job Schedule ID does not exist.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/jobs/:jobScheduleId",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "jobs", ":jobScheduleId" ],
+        "variable" : [ {
+          "key" : "jobScheduleId",
+          "value" : "{{jobScheduleId}}"
+        } ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Manually trigger an immediate retry for a failed job",
+    "request" : {
+      "method" : "POST",
+      "description" : "Manually trigger an immediate retry for a failed job\n\nResponses:\n- 202: Job marked for immediate retry.\n- 400: Job is not in a retryable state (must be FAILED or TIMEOUT).\n- 404: The specified Job Schedule ID does not exist.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/retry/:jobScheduleId",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "retry", ":jobScheduleId" ],
+        "variable" : [ {
+          "key" : "jobScheduleId",
+          "value" : "{{jobScheduleId}}",
+          "description" : "ID of the failed scheduled job."
+        } ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Get global retry policy configuration",
+    "request" : {
+      "method" : "GET",
+      "description" : "Get global retry policy configuration\n\nResponses:\n- 200: Current retry configuration.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/retry/config",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "retry", "config" ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Update global retry policy (Admin only)",
+    "request" : {
+      "method" : "PUT",
+      "description" : "Update global retry policy (Admin only)\n\nResponses:\n- 200: Retry policy updated successfully.\n- 400: Invalid request payload or unsupported job type.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ {
+        "key" : "Content-Type",
+        "value" : "application/json",
+        "type" : "text"
+      } ],
+      "body" : {
+        "mode" : "raw",
+        "raw" : "{}",
+        "options" : {
+          "raw" : {
+            "language" : "json"
+          }
+        }
+      },
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/retry/config",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "retry", "config" ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Inspect queue health and worker pool utilization",
+    "request" : {
+      "method" : "GET",
+      "description" : "Inspect queue health and worker pool utilization\n\nResponses:\n- 200: Current state of the execution engine.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/queues",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "queues" ]
+      }
+    },
+    "response" : [ ]
+  }, {
+    "name" : "Initiate graceful shutdown / drain the queue",
+    "request" : {
+      "method" : "POST",
+      "description" : "Initiate graceful shutdown / drain the queue\n\nResponses:\n- 202: Drain process started. Service will stop accepting new jobs.\n- 500: Unexpected error while interacting with the thread pool or blocking queue.",
+      "header" : [ ],
+      "url" : {
+        "raw" : "{{baseUrl}}/scheduler/drain?timeoutSeconds={{timeoutSeconds}}",
+        "host" : [ "{{baseUrl}}" ],
+        "path" : [ "scheduler", "drain" ],
+        "query" : [ {
+          "key" : "timeoutSeconds",
+          "value" : "{{timeoutSeconds}}",
+          "disabled" : true,
+          "description" : "Maximum seconds to wait for running jobs to finish."
+        } ]
+      }
+    },
+    "response" : [ ]
+  } ]
+}
